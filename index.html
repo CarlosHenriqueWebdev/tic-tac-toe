@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Tic Tac Toe</title>
+      <link rel="icon" type="image/ico" href="/assets/favicon.ico">
+      <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+
+      <div class="container">
+        <div id="board">
+          <div id="overlay">
+            <h2>Game Over</h2>
+
+            <p>
+              Restart?
+              <img src="./assets/Restart.svg" alt="Restart Game Icon" />
+            </p>
+          </div>
+
+          <div class="row" data-row="0">
+            <div class="cell" data-col="0"><div class="symbol"></div></div>
+            <div class="cell" data-col="1"><div class="symbol"></div></div>
+            <div class="cell" data-col="2"><div class="symbol"></div></div>
+          </div>
+
+          <div class="row" data-row="1">
+            <div class="cell" data-col="0"><div class="symbol"></div></div>
+            <div class="cell" data-col="1"><div class="symbol"></div></div>
+            <div class="cell" data-col="2"><div class="symbol"></div></div>
+          </div>
+          
+          <div class="row" data-row="2">
+            <div class="cell" data-col="0"><div class="symbol"></div></div>
+            <div class="cell" data-col="1"><div class="symbol"></div></div>
+            <div class="cell" data-col="2"><div class="symbol"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="score">
+          <div id="xScoreDiv">
+            <h2>Player X</h2>
+            <span id="xPlayerWins"></span>
+          </div>
+          <div id="tiesCounterDiv">
+            <h2>Tie</h2>
+            <span id="tiesCounter"></span>
+          </div>
+          <div id="oScoreDiv">
+            <h2>Player O</h2>
+            <span id="oPlayerWins"></span>
+          </div>
+        </div>
+      </footer>
+
+      <audio id="moveSound" src="/assets/move-sound.wav"></audio>
+      <audio id="victorySound" src="/assets/victory-sound.wav"></audio>
+      <audio id="tieSound" src="/assets/tie-sound.wav"></audio>
+
+      <script src="script.js"></script>
+    </body>
+  </html>
+</html>
