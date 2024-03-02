@@ -1,5 +1,6 @@
 describe("initial state", () => {
   it("should initialize classes and text content correctly", () => {
+    // Set up the initial HTML structure
     document.body.innerHTML = `
     <div>
     <div class="cell"></div>
@@ -39,10 +40,13 @@ describe("initial state", () => {
     </div>
     `;
 
+    // Import the function to be tested
     const { initStarterClassAndScores } = require("../script.js");
 
+    // Get symbols elements
     const symbols = Array.from(document.querySelectorAll(".symbol"));
 
+    // Get initial score values
     const xPlayerScore = String(Number(xPlayerWins.textContent)).padStart(
       2,
       "0"
@@ -58,19 +62,22 @@ describe("initial state", () => {
     // Act
     const result = initStarterClassAndScores();
 
+    // Assert initial scores are set to 0
     expect(xPlayerScore).toBe("00");
     expect(oPlayerScore).toBe("00");
     expect(tiesCounterScore).toBe("00");
 
+    // Assert symbols have correct initial classes
     symbols.forEach((symbol) => {
       expect(symbol.classList.contains("cross")).toBe(true);
       expect(symbol.classList.contains("circle")).toBe(false);
     });
 
-    // Assert
+    // Assert score divs have correct initial classes
     expect(xScoreDiv.classList.contains("italic-text")).toBe(true);
     expect(oScoreDiv.classList.contains("italic-text")).toBe(false);
 
+    // Assert the message returned by the function
     expect(result.message).toBe("Initiated game successfully");
   });
 });

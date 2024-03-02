@@ -1,5 +1,6 @@
 describe("resetGame", () => {
-  it("should handle the reset code correctly", () => {
+  it("should reset the game state correctly", () => {
+    // Set up the initial game state
     document.body.innerHTML = `
       <div>
       <div class="cell x"></div>
@@ -37,7 +38,7 @@ describe("resetGame", () => {
       <audio id="victorySound"></audio>
       <audio id="tieSound"></audio>
       </div>
-      `;
+    `;
 
     const { resetGame } = require("../script.js");
 
@@ -47,6 +48,7 @@ describe("resetGame", () => {
     // Act
     const result = resetGame();
 
+    // Assert
     cells.forEach((cell) => {
       expect(cell.classList.contains("x")).toBe(false);
       expect(cell.classList.contains("o")).toBe(false);
@@ -61,6 +63,7 @@ describe("resetGame", () => {
     expect(oScoreDiv.classList.contains("italic-text")).toBe(false);
     expect(tiesCounterDiv.classList.contains("italic-text")).toBe(false);
 
+    // Check the result of the resetGame function
     expect(result.message).toBe("Game resetted sucessfully");
     expect(result.isGameOver).toBe(false);
     expect(result.currentPlayer).toBe("X");

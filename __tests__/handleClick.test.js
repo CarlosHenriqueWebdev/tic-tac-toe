@@ -151,7 +151,7 @@ describe("handle click", () => {
     const result = handleClick(clickEvent);
 
     expect(result.message.checkForWinnerMessage).toBe(
-      "Tie, no winning Combintaions found and all Cells were filled"
+      "Tie, no winning combinations found and all cells were filled"
     );
   });
 

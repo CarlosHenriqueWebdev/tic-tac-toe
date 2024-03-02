@@ -1,3 +1,4 @@
+// Selecting necessary elements from the DOM
 const board = document.getElementById("board");
 const cells = document.querySelectorAll(".cell");
 const symbols = document.querySelectorAll(".symbol");
@@ -12,17 +13,18 @@ const moveSound = document.getElementById("moveSound");
 const victorySound = document.getElementById("victorySound");
 const tieSound = document.getElementById("tieSound");
 
-let isFirstClick = true;
-let startingPlayer;
-
+// Variables to track game state
+let isFirstClick = true; // Flag to track the first click
+let startingPlayer; // Player who starts the game
 let currentPlayer = "X"; // Current player
-let isGameOver = false;
+let isGameOver = false; // Flag to track if the game is over
 
 // ClickCount for the ResetGame Function. Is currently used to make sure that the Match doesn't imediately Restart during a Player Last Move
 let clickCount = 0;
 
+// Function to initialize the game state and scores
 function initStarterClassAndScores() {
-  // Initial Class Italic Class for "X"
+  // Initial Class for the "X" Player on the Scoreboard
   xScoreDiv.classList.add("italic-text");
 
   // Initial Class Symbol for "X" on Hover
@@ -47,9 +49,12 @@ function initStarterClassAndScores() {
   };
 }
 
+// Initialize the game state and scores
 initStarterClassAndScores();
 
+// Function to check for a winner or tie
 const checkForWinnerAndTie = () => {
+  // Check if cells are in a valid state
   if (!cells || cells.length !== 9) {
     return { checkForWinnerMessage: "Invalid Cells State" };
   }
@@ -66,6 +71,7 @@ const checkForWinnerAndTie = () => {
     [2, 4, 6],
   ];
 
+  // Check if any winning combination is achieved
   for (const combo of winningCombos) {
     const [a, b, c] = combo;
     if (
@@ -73,6 +79,7 @@ const checkForWinnerAndTie = () => {
       cells[b].classList.contains(currentPlayer.toLowerCase()) &&
       cells[c].classList.contains(currentPlayer.toLowerCase())
     ) {
+      // Set isGameOver to true as a combination has been found
       isGameOver = true;
 
       return {
@@ -84,18 +91,19 @@ const checkForWinnerAndTie = () => {
     }
   }
 
-  // Check if all cells are filled
+  // Check if all cells are filled without any winning combinations, resulting in a tie
   if (
     [...cells].every(
       (cell) => cell.classList.contains("x") || cell.classList.contains("o")
     )
   ) {
+    // Set isGameOver to true as a tie has happened
     isGameOver = true;
 
     return {
       playerWhoDidTheLastMove: currentPlayer,
       checkForWinnerMessage:
-        "Tie, no winning Combintaions found and all Cells were filled",
+        "Tie, no winning combinations found and all cells were filled",
     };
   }
 
@@ -104,6 +112,7 @@ const checkForWinnerAndTie = () => {
   };
 };
 
+// Function to handle cell clicks
 const handleClick = (clickEvent) => {
   const checkResult = checkForWinnerAndTie(cells);
 
@@ -124,6 +133,7 @@ const handleClick = (clickEvent) => {
     };
   }
 
+  // Pretty much mark's who was the starting player this turn, meaning that another player will start the next turn, regardles of who won this one
   if (isFirstClick) {
     if (currentPlayer === "X") {
       startingPlayer = "O";
@@ -173,6 +183,7 @@ const handleClick = (clickEvent) => {
     }
   }
 
+  // Check for game condition again, now that a move has been sucessfully made
   const checkResultAgain = checkForWinnerAndTie(cells);
 
   if (
@@ -184,6 +195,7 @@ const handleClick = (clickEvent) => {
       victorySound.play();
     }
 
+    // Play victory sound
     playVictorySound();
 
     // Remove Hover Symbols Class
@@ -221,7 +233,7 @@ const handleClick = (clickEvent) => {
     };
   } else if (
     checkResultAgain.checkForWinnerMessage ===
-    "Tie, no winning Combintaions found and all Cells were filled"
+    "Tie, no winning combinations found and all cells were filled"
   ) {
     function playTieSound() {
       tieSound.currentTime = 0;
@@ -362,8 +374,10 @@ const boardClickToReset = () => {
   }
 };
 
+// Add click event listener to the board
 board.addEventListener("click", boardClickToReset);
 
+// Export functions for testing environment
 if (typeof module !== "undefined" && module.exports) {
   // This is Node.js or Jest environment
   module.exports = {
